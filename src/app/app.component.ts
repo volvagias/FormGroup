@@ -46,7 +46,7 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Inject, ViewChild, ElementRef, OnInit } from '@angular/core'; // rendered2
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -62,7 +62,7 @@ export class AppComponent {
     this.permisosForm = new FormGroup ({
       permisos: new FormArray([
       ])
-    })
+    });
 
     this.agregarFilaPermisos();
   }
@@ -80,11 +80,17 @@ export class AppComponent {
   }
 
   agregarFilaPermisos() {
-    this.permisos.push(new FormControl(''));
+
+    this.permisos.push(new FormControl('', [Validators.required, Validators.minLength(3)]));
+
   }
 
   borrarFilaPermisos(index:number): void {
-    this.permisos.removeAt(index);
+    if (this.permisos.length <= 1) {
+      this.permisos.at(index).reset('');
+    } else {
+      this.permisos.removeAt(index);
+    }
   }
 
 }

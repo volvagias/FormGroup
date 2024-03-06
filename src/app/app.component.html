@@ -16,6 +16,12 @@
     <ng-container *ngFor="let permiso of permisos.controls; index as i">
       <label>
         <input type="text" name="permisos-{{i}}" [formControlName]="i">
+        <div *ngIf="permiso.hasError('required') && permiso.touched">
+          Este campo es obligatorio.
+        </div>
+        <div *ngIf="permiso.hasError('minlength') && permiso.touched">
+          Debe tener al menos 3 caracteres.
+        </div>
         <button (click)="borrarFilaPermisos(i)">Borrar Fila de Permisos</button>
       </label>
       <button (click)="agregarFilaPermisos()">+ Agregar Fila de Permisos</button>
