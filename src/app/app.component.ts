@@ -81,7 +81,7 @@ export class AppComponent {
 
   agregarFilaPermisos() {
 
-    this.permisos.push(new FormControl('', [Validators.required, Validators.minLength(3)]));
+    this.permisos.push(new FormControl(''));
 
   }
 
